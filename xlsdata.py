@@ -1,9 +1,6 @@
 import xlrd
-
-
 book = xlrd.open_workbook('pagina.xls')
 sheets = book.nsheets
-
 
 def loadXLS():
     print (book.nsheets)
@@ -19,11 +16,6 @@ def loadXLS():
                 cell = sheet.cell(row,col)
                 #cell2 = sheet.cell(row,col+1)
                 print(str(cell.value) + "\t",end="")
-    #print (num_rows)
-    #print (num_col)
-    #print(sheets)
-    #cur_sheet = book.sheet_by_name(sheets[0])
-    #print (cur_sheet)
 
 #esta funcion valida que la columna sea la de los ID y busca un id especifico
 def find_page(id,page):
