@@ -3,7 +3,6 @@ book = xlrd.open_workbook('pagina.xls')
 sheets = book.nsheets
 
 def loadXLS():
-    print (book.nsheets)
     sheets = book.nsheets
     for hoja in range(sheets):
         print("----------hoja " + str(hoja))
@@ -32,7 +31,6 @@ def find_page(id,page):
                 #print(rows_cell)
                 if id == rows_cell[0] and rows_cell[1] == 1:
                     print(rows_cell[0],"-",rows_cell[2],"-",rows_cell[3])
-     
     #return cell.value
 
 def getAboutImg():
@@ -47,6 +45,5 @@ def getAboutText():
     cell = sheet.cell(2,1)
     return cell.value
 
-#find_id_col(2,1)
 loadXLS()
 #print("Loading data for web")

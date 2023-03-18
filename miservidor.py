@@ -1,20 +1,21 @@
-from flask import Flask
+from flask import Flask, make_response
 import mymodule
+import xlrd
 
 app = Flask(__name__)
 
 @app.route('/')
+def saludo():
+    return 'Hola, Mundo'
+
+@app.route('/mymodule')
 def hello():
-    return "Hello, World!"
+    book = xlrd.open_workbook('pagina.xls')
+    num_sheets = mymodule.getnumsheets(book)
+    print("El archivo tiene", num_sheets, "hojas")
 
-@app.route('/excel/columna1')
-def columna():
-    return "Columna 1 data"
+    num_rows, num_cols = mymodule.getsheetdimension(book, 0)
+    print("La primera hoja tiene", num_rows, "renglones y", num_cols, "columnas")
 
-@app.route("/mymodule")
-def module():
-    return(mymodule.saludo())
-
-if __name__ =='__main__':
-    print("main saludo")
+if __name__ == '__main__':
     app.run()
