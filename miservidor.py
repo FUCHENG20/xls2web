@@ -1,6 +1,5 @@
-from flask import Flask, make_response
+from flask import Flask, jsonify
 import mymodule
-import xlrd
 
 app = Flask(__name__)
 
@@ -8,14 +7,17 @@ app = Flask(__name__)
 def saludo():
     return 'Hola, Mundo'
 
-@app.route('/mymodule')
-def hello():
-    book = xlrd.open_workbook('pagina.xls')
-    num_sheets = mymodule.getnumsheets(book)
-    print("El archivo tiene", num_sheets, "hojas")
+#route #1
+@app.route('/num_pag/<pagina>')
+def num_pag(pagina):
+    ruta = mymodule.getnumsheets(pagina)
+    return jsonify({'Archivo ': pagina, 'Hojas ' : ruta})
 
-    num_rows, num_cols = mymodule.getsheetdimension(book, 0)
-    print("La primera hoja tiene", num_rows, "renglones y", num_cols, "columnas")
+#route #2
+@app.route('/dimension/<pagina>/<num_hoja>')
+def dimension(pagina, num_hoja):
+    num_rows, num_cols = mymodule.getsheetdimension(pagina, num_hoja)
+    return jsonify({'Filas': num_rows, 'Columnas': num_cols})
 
 if __name__ == '__main__':
     app.run()

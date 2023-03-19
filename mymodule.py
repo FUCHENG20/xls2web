@@ -1,12 +1,16 @@
 import xlrd
-book = xlrd.open_workbook('pagina.xls')
-sheets = book.nsheets
+
 ##############################TAREA#####################################
 # Funcion que regresa cuantas hojas hay en el archivo
-def getnumsheets(book):
-    return len(book.sheet_names())
+def getnumsheets(pagina):
+    book = xlrd.open_workbook(pagina)
+    return book.nsheets
 
 # Funcion que regresa cuantos renglones y columnas tiene una hoja
-def getsheetdimension(book, sheet_index = 0):
-    sheet = book.sheet_by_index(sheet_index)
-    return sheet.max_row, sheet.max_column
+def getsheetdimension(pagina, num_hoja):
+    # Obtener la hoja de cálculo especificada por el número de hoja
+    book = xlrd.open_workbook(pagina)
+    sheet = book.sheet_by_index(int(num_hoja))
+    num_rows = sheet.nrows
+    num_cols = sheet.ncols
+    return (num_rows, num_cols)
