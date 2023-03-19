@@ -1,6 +1,7 @@
 import xlrd
 
 ##############################TAREA#####################################
+
 # FUNCION #1 que regresa cuantas hojas hay en el archivo
 def getnumsheets(pagina):
     book = xlrd.open_workbook(pagina)
@@ -45,4 +46,14 @@ def checkcolumnheader(pagina, nom_hoja, num_col, cabecera_e):
     else:
         return False, None
 
-# FUNCION #6 
+# FUNCION #6 que regresa el contenido de N columnas en la hoja X, dame_columnas([2,4,5],hoja2)
+def contentcolumns(pagina, cols, nom_hoja):
+    book = xlrd.open_workbook(pagina)
+    sheet = book.sheet_by_name(nom_hoja)
+    values = []
+    for col in cols:
+        content = sheet.col_values(col)
+        values.append(content)
+    return values
+
+# FUNCION #7 que me regresa toda la hoja en una matriz ordenada
