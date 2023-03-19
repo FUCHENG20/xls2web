@@ -28,7 +28,7 @@ def getcolumnvalues(pagina, nom_hoja, num_col):
     sheet = book.sheet_by_name(nom_hoja)
     values = []
     for row_index in range(sheet.nrows):
-        cell_value = sheet.cell(row_index, int(num_col) - 1).value
+        cell_value = sheet.cell(row_index, num_col - 1).value
         values.append(cell_value)
     return values
 
@@ -36,11 +36,11 @@ def getcolumnvalues(pagina, nom_hoja, num_col):
 def checkcolumnheader(pagina, nom_hoja, num_col, cabecera_e):
     book = xlrd.open_workbook(pagina)
     sheet = book.sheet_by_name(nom_hoja)
-    header = sheet.cell(0, int(num_col) - 1).value
+    header = sheet.cell(0, num_col - 1).value
     if header == cabecera_e:
         values = []
         for row_index in range(1, sheet.nrows):
-            cell_value = sheet.cell(row_index, int(num_col) - 1).value
+            cell_value = sheet.cell(row_index, num_col - 1).value
             values.append(cell_value)
         return True, values
     else:
@@ -57,3 +57,8 @@ def contentcolumns(pagina, cols, nom_hoja):
     return values
 
 # FUNCION #7 que me regresa toda la hoja en una matriz ordenada
+def matrix(pagina, num_hoja):
+    book = xlrd.open_workbook(pagina)
+    sheet = book.sheet_by_index(num_hoja)
+    data = [sheet.row_values(row) for row in range(sheet.nrows)]
+    return data
