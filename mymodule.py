@@ -1,16 +1,34 @@
 import xlrd
 
 ##############################TAREA#####################################
-# Funcion que regresa cuantas hojas hay en el archivo
+# FUNCION #1 que regresa cuantas hojas hay en el archivo
 def getnumsheets(pagina):
     book = xlrd.open_workbook(pagina)
     return book.nsheets
 
-# Funcion que regresa cuantos renglones y columnas tiene una hoja
+# FUNCION #2 que regresa cuantos renglones y columnas tiene una hoja
 def getsheetdimension(pagina, num_hoja):
-    # Obtener la hoja de cálculo especificada por el número de hoja
     book = xlrd.open_workbook(pagina)
-    sheet = book.sheet_by_index(int(num_hoja))
+    sheet = book.sheet_by_index(num_hoja)
     num_rows = sheet.nrows
     num_cols = sheet.ncols
     return (num_rows, num_cols)
+
+# FUNCION #3 que regresa el contenido de una celda en una hoja especifica
+def getcellcontent(pagina, num_hoja, num_row, num_col):
+    book = xlrd.open_workbook(pagina)
+    sheet = book.sheet_by_index(num_hoja)
+    cell_value = sheet.cell_value(num_row, num_col)
+    return cell_value
+
+# FUNCION #4 que regresa el contenido de una columna completa
+def getcolumnvalues(pagina, nom_hoja, num_col):
+    book = xlrd.open_workbook(pagina)
+    sheet = book.sheet_by_name(nom_hoja)
+    values = []
+    for row_index in range(sheet.nrows):
+        cell_value = sheet.cell(row_index, int(num_col) - 1).value
+        values.append(cell_value)
+    return values
+
+# FUNCION #5 que revisa la cabecera de la columna "para validar el nombre de la columna"
