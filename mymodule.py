@@ -32,3 +32,17 @@ def getcolumnvalues(pagina, nom_hoja, num_col):
     return values
 
 # FUNCION #5 que revisa la cabecera de la columna "para validar el nombre de la columna"
+def checkcolumnheader(pagina, nom_hoja, num_col, cabecera_e):
+    book = xlrd.open_workbook(pagina)
+    sheet = book.sheet_by_name(nom_hoja)
+    header = sheet.cell(0, int(num_col) - 1).value
+    if header == cabecera_e:
+        values = []
+        for row_index in range(1, sheet.nrows):
+            cell_value = sheet.cell(row_index, int(num_col) - 1).value
+            values.append(cell_value)
+        return True, values
+    else:
+        return False, None
+
+# FUNCION #6 
